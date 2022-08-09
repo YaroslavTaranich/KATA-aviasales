@@ -1,0 +1,6 @@
+/.git
+/.vscode
+/.vercel
+node_modules
+
+/build

@@ -1,0 +1,42 @@
+@import '/src/assets/scss/variabels.scss';
+
+.check {
+  padding-left: 20px;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  height: 40px;
+  transition: all 0.2s;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 13px;
+  line-height: 18px;
+
+  &:hover {
+    background-color: $hover-color;
+  }
+
+  &__input {
+    position: absolute;
+    appearance: none;
+  }
+  &__box {
+    width: 18px;
+    height: 18px;
+    overflow: hidden;
+    border-radius: 2px;
+    background-repeat: no-repeat;
+    background-position: 50% 50%;
+    box-shadow: 0 0 0 1px $checkbox-gray;
+    margin-right: 10px;
+    transition: all 0.2s;
+  }
+
+  &__input:focus + &__box {
+    box-shadow: 0 0 0 1px $primary;
+  }
+  &__input:checked + &__box {
+    box-shadow: 0 0 0 1px $primary;
+    background-image: url('./check.svg');
+  }
+}

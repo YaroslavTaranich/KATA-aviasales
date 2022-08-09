@@ -1,0 +1,10 @@
+@import 'src/assets/scss/variabels.scss';
+
+.app {
+  width: 100%;
+  min-height: 100vh;
+  background-color: $background-color;
+  display: flex;
+  flex-direction: column;
+  padding-bottom: 30px;
+}
