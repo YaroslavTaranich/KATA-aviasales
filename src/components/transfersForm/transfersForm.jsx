@@ -1,27 +1,42 @@
+import React, { useEffect, useCallback } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 
+import { filterTickets, sortTickets } from '../../redux/slices/filtredTicketsSlice'
+import { setTransfersFilters, setAllTransfers } from '../../redux/slices/transfersFormSlice'
 import Checkbox from '../UI/checkbox/checkbox'
 
 import styles from './transfersForm.module.scss'
-import { setTransfersFilters, setAllTransfers } from './transfersFormSlice'
 
 const checkBoxes = [
-  { id: 2, name: 'noTransfers', label: 'Без пересадок' },
-  { id: 3, name: 'transfer_1', label: '1 пересадка' },
-  { id: 4, name: 'transfer_2', label: '2 пересадки' },
-  { id: 5, name: 'transfer_3', label: '3 пересадки' },
+  { id: 'all', name: 'all', label: 'Все' },
+  { id: 0, name: 'noTransfers', label: 'Без пересадок' },
+  { id: 1, name: 'transfer_1', label: '1 пересадка' },
+  { id: 2, name: 'transfer_2', label: '2 пересадки' },
+  { id: 3, name: 'transfer_3', label: '3 пересадки' },
 ]
 
 function TransfersFrom() {
   const filtersValues = useSelector((state) => state.transfersFilter)
+  const isStop = useSelector((state) => state.tickets.stop)
   const dispatch = useDispatch()
+
+  useEffect(() => {
+    dispatch(filterTickets()).then(() => dispatch(sortTickets()))
+  }, [filtersValues, isStop])
+
+  const changeHandler = useCallback(
+    (id, value) => {
+      dispatch(id === 'all' ? setAllTransfers({ [id]: !value }) : setTransfersFilters({ [id]: !value }))
+    },
+    [dispatch]
+  )
 
   const transfers = checkBoxes.map((box) => (
     <Checkbox
       id={box.id}
       key={box.name}
-      value={filtersValues.transfers[box.name]}
-      changeHandler={() => dispatch(setTransfersFilters({ [box.name]: !filtersValues.transfers[box.name] }))}
+      value={box.id === 'all' ? filtersValues.all : filtersValues.transfers[box.id]}
+      changeHandler={changeHandler}
     >
       {box.label}
     </Checkbox>
@@ -31,17 +46,10 @@ function TransfersFrom() {
     <form className={styles.form}>
       <fieldset className={styles.form__field}>
         <legend className={styles.form__legend}>Количество пересадок</legend>
-        <Checkbox
-          id={1}
-          value={filtersValues.all}
-          changeHandler={() => dispatch(setAllTransfers({ all: !filtersValues.all }))}
-        >
-          Все
-        </Checkbox>
         {transfers}
       </fieldset>
     </form>
   )
 }
 
-export default TransfersFrom
+export default React.memo(TransfersFrom)

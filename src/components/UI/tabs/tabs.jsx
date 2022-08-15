@@ -1,3 +1,6 @@
+import React from 'react'
+import PropTypes from 'prop-types'
+
 import styles from './tabs.module.scss'
 
 function Tabs({ tabs, selectedTab, onSelect }) {
@@ -14,4 +17,10 @@ function Tabs({ tabs, selectedTab, onSelect }) {
   return <div className={styles.tabs}>{content}</div>
 }
 
-export default Tabs
+Tabs.propTypes = {
+  onSelect: PropTypes.func.isRequired,
+  selectedTab: PropTypes.string.isRequired,
+  tabs: PropTypes.arrayOf(PropTypes.objectOf(PropTypes.string)).isRequired,
+}
+
+export default React.memo(Tabs)

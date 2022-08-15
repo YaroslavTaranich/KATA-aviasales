@@ -1,0 +1,41 @@
+@import '/src/assets/scss/variabels.scss';
+
+.container {
+  margin: 20px auto;
+}
+
+.progress {
+  padding: 0px;
+  background: rgba(0, 0, 0, 0.25);
+  border-radius: 6px;
+  box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.25), 0 1px rgba(255, 255, 255, 0.08);
+  border: 1px solid $border-gray;
+}
+
+.progress__bar {
+  height: 10px;
+  max-width: 100%;
+  background-color: $checkbox-gray;
+  background-image: repeating-linear-gradient(-45deg, $primary 0px, $primary 20px, transparent 20px, transparent 40px);
+  background-size: 60px auto;
+  border-radius: 4px;
+  transition: 0.4s linear;
+  transition-property: width, background-color;
+  animation: moving 1.5s linear infinite;
+}
+
+.progress__bar {
+  background-color: $hover-color;
+  width: 100%;
+
+  transition: all 0.4s;
+}
+
+@keyframes moving {
+  from {
+    background-position: -60px, 0;
+  }
+  to {
+    background-position: 60px 0;
+  }
+}

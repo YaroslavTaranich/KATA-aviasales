@@ -1,3 +1,5 @@
+import React from 'react'
+
 import logo from '../../assets/img/logo.svg'
 
 import styles from './header.module.scss'
@@ -10,4 +12,4 @@ function Header() {
   )
 }
 
-export default Header
+export default React.memo(Header)

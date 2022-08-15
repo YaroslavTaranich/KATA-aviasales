@@ -2,13 +2,14 @@
 import { createSlice } from '@reduxjs/toolkit'
 
 const initialState = {
-  all: false,
+  all: true,
   transfers: {
-    noTransfers: true,
-    transfer_1: false,
-    transfer_2: true,
-    transfer_3: false,
+    0: true,
+    1: true,
+    2: true,
+    3: true,
   },
+  countsOfTransfer: [0, 1, 2, 3],
 }
 
 const isAllTrue = (obj) => {
@@ -25,17 +26,27 @@ const setAlltoValue = (obj, value) => {
   }, {})
 }
 
+const setCountsOfTransfers = (obj) => {
+  const keys = Object.keys(obj)
+  return keys.reduce((arr, value) => {
+    if (obj[value]) arr.push(Number(value))
+    return arr
+  }, [])
+}
+
 export const transferFormSlice = createSlice({
   name: 'transfersFilter',
   initialState,
   reducers: {
     setTransfersFilters: (state, action) => {
-      state = { ...state, transfers: { ...state.transfers, ...action.payload } }
+      state.transfers = { ...state.transfers, ...action.payload }
       state.all = isAllTrue(state.transfers)
+      state.countsOfTransfer = setCountsOfTransfers(state.transfers)
       return state
     },
     setAllTransfers: (state, action) => {
       state = { ...action.payload, transfers: { ...setAlltoValue(state.transfers, action.payload.all) } }
+      state.countsOfTransfer = setCountsOfTransfers(state.transfers)
       return state
     },
   },

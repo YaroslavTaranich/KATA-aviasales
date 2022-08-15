@@ -1,11 +1,71 @@
+@import '../../assets/scss/variabels.scss';
+
 .layout {
   display: grid;
   grid-template-columns: 232px 502px;
   margin: 0 auto;
   gap: 20px;
-  // &__aside {
-  // }
 
-  // &__tickets {
-  // }
+  @media (max-width: 780px) {
+    grid-template-columns: 1fr;
+    width: 100%;
+    max-width: 502px;
+    padding: 0 10px;
+    margin: 0 auto 40px;
+  }
+
+  &__toggle {
+    display: none;
+    position: fixed;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 999;
+    background-color: $primary;
+    padding: 10px 20px;
+    outline: none;
+    border: none;
+    text-transform: uppercase;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 12px;
+    line-height: 20px;
+    letter-spacing: 0.5px;
+    cursor: pointer;
+    border-radius: 5px;
+    color: $white;
+    border: 1px solid $border-gray;
+    transition: all 0.3s;
+
+    @media (max-width: 780px) {
+      display: block;
+    }
+
+    &--open {
+      @media (max-width: 780px) {
+        padding: 10px;
+        line-height: 5px;
+        border-radius: 50%;
+      }
+    }
+  }
+
+  &__aside {
+    transition: all 0.5s;
+    @media (max-width: 780px) {
+      position: fixed;
+      bottom: 0;
+      left: 50%;
+      transform: translate(-50%, 100%);
+      z-index: 999;
+      width: 90%;
+      max-width: 250px;
+    }
+
+    &--open {
+      @media (max-width: 780px) {
+        transform: translate(-50%, -35%);
+      }
+    }
+  }
 }
