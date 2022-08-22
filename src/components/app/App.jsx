@@ -11,6 +11,7 @@ import Spinner from '../UI/spinner/spinner'
 import ErrorMessage from '../UI/errorMessage/errorMessage'
 import { fetchSearchID } from '../../redux/slices/searchIdSlice'
 import { fetchTickets } from '../../redux/slices/searchTicketsSlice'
+import { filterTickets, sortTickets } from '../../redux/slices/filtredTicketsSlice'
 
 import styles from './App.module.scss'
 
@@ -23,6 +24,8 @@ function App() {
     if (!searchID.id) dispatch(fetchSearchID())
     if (searchID.id && !tickets.stop && tickets.status !== 'loading' && tickets.status !== 'failed') {
       dispatch(fetchTickets(searchID.id))
+        .then(() => dispatch(filterTickets()))
+        .then(() => dispatch(sortTickets()))
     }
   }, [dispatch, searchID.id, tickets])
 
@@ -31,6 +34,7 @@ function App() {
       <Header />
       <Layout aside={<TransfersFrom />} asideLabel="Фильтры">
         <PriceFilter />
+
         {!tickets.stop && searchID.status !== 'error' && tickets.status !== 'failed' && (
           <ProgressBar value={tickets.tickets.length} />
         )}
@@ -41,7 +45,7 @@ function App() {
           <ErrorMessage message="Ошибка! Не получается загрузить билеты, попробуйте позднее" />
         )}
 
-        {searchID.status === 'resolved' && tickets.tickets.length > 0 && <TicktsList />}
+        <TicktsList />
       </Layout>
     </div>
   )

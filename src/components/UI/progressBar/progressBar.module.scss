@@ -19,9 +19,8 @@
   background-image: repeating-linear-gradient(-45deg, $primary 0px, $primary 20px, transparent 20px, transparent 40px);
   background-size: 60px auto;
   border-radius: 4px;
-  transition: 0.4s linear;
-  transition-property: width, background-color;
-  animation: moving 1.5s linear infinite;
+  transition: all 0.9s linear;
+  animation: moving 3s linear infinite reverse;
 }
 
 .progress__bar {

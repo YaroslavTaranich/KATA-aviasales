@@ -17,12 +17,11 @@ const checkBoxes = [
 
 function TransfersFrom() {
   const filtersValues = useSelector((state) => state.transfersFilter)
-  const isStop = useSelector((state) => state.tickets.stop)
   const dispatch = useDispatch()
 
   useEffect(() => {
     dispatch(filterTickets()).then(() => dispatch(sortTickets()))
-  }, [filtersValues, isStop])
+  }, [filtersValues])
 
   const changeHandler = useCallback(
     (id, value) => {
